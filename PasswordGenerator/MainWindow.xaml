@@ -31,7 +31,7 @@
 
             <Grid Margin="20" local:ChildMarginProperty.Value="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
@@ -88,6 +88,14 @@
                 <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
                        Content="Votre mot de passe a été copié dans le presse papier." 
                        Visibility="{Binding PasswordIsEncrypted, Converter={local:Bool2VisibilityHiddenConverter}}"/>
+                
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                       Content="Le mot de passe master n'est pas suffisamment long." 
+                       Foreground="Red"
+                       Visibility="{Binding (local:IsSecuredPasswordProperty.Value), 
+                                            ElementName=EncryptionKey, 
+                                            Converter={local:Bool2VisibilityHiddenConverter},
+                                            ConverterParameter=True}"/>
         
                 <!-- Show the result -->
                 <CheckBox Grid.Row="4" Grid.Column="0" 
