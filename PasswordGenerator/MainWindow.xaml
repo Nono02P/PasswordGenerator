@@ -1,0 +1,106 @@
+﻿<Window x:Class="PasswordGenerator.MainWindow"
+        x:Name="MainPage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordGenerator"
+        mc:Ignorable="d"
+        d:DataContext="{x:Static local:MainWindowDesignModel.Instance}"
+        Title="Générateur de mot de passe" 
+        Background="{StaticResource ApplicationBackgroundBrush}"
+           Height="300"    Width="600"
+        MaxHeight="300" MaxWidth="600"
+        MinHeight="300" MinWidth="600">
+    
+    <Border ClipToBounds="True">
+        <Border.Background>
+            <ImageBrush TileMode="Tile" ViewportUnits="Absolute" Opacity="0.1" Viewport="0 0 150 144" ImageSource="{StaticResource BackgroundImage}"/>
+        </Border.Background>
+        
+        <Border Margin="20" 
+                local:AnimateSlideInFromLeftOnLoadProperty.Value="True"
+                CornerRadius="15" 
+                Background="White"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+            
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="8" ShadowDepth="3" Opacity="0.8"/>
+            </Border.Effect>
+
+            <Grid Margin="20" local:ChildMarginProperty.Value="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <!-- Add a password name -->
+                <Label Grid.Row="0" Grid.Column="0" 
+                       Content="Ajouter un site :"/>
+        
+                <TextBox Grid.Row="0" Grid.Column="1" 
+                         x:Name="txtNewPasswordName"
+                         ToolTip="Taper le nom d'un site puis cliquer sur ajouter pour l'ajouter à la liste de sites enregistrés."
+                         Text="{Binding NewPasswordName, UpdateSourceTrigger=PropertyChanged}"/>
+        
+                <Button Grid.Row="0" Grid.Column="2" 
+                        Padding="10 0"
+                        ToolTip="Ajoute le site à la liste de sites enregistrés."
+                        Command="{Binding AddPasswordNameCommand}"
+                        Content="Ajouter"/> 
+        
+                <!-- List of passwords -->
+                <Label Grid.Row="1" Grid.Column="0" 
+                       Content="Site à générer :"/>
+                
+                <ComboBox Grid.Row="1" Grid.Column="1" 
+                          ToolTip="Sélectionner le site pour lequel générer le mot de passe."
+                          ItemsSource="{Binding PasswordNames}" 
+                          SelectedItem="{Binding CurrentPasswordName, Mode=TwoWay}"/>
+        
+                <!-- Password -->
+                <Label Grid.Row="2" Grid.Column="0" 
+                       Content="Mot de passe master :"/>
+        
+                <PasswordBox Grid.Row="2" Grid.Column="1" 
+                             ToolTip="Le mot de passe master est unique et est le seul à retenir (ne surtout pas enregistrer ce mot de passe quelque part et ne surtout pas l'oublier sous peine de perdre tous les mots de passes des sites)."
+                             x:Name="EncryptionKey"
+                             local:MonitorPasswordProperty.Value="True"/>
+        
+                <!-- Generated Password -->
+                <Button Grid.Row="3" Grid.Column="2" 
+                        Padding="10 0"
+                        ToolTip="Génère un mot de passe fort (à utiliser sur le site sélectionné) à partir du mot de passe master et du nom du site."
+                        Command="{Binding GeneratePasswordCommand}" CommandParameter="{Binding ElementName=MainPage}"
+                        IsDefault="True"
+                        Content="Générer"/>
+        
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" 
+                       Content="Votre mot de passe a été copié dans le presse papier." 
+                       Visibility="{Binding PasswordIsEncrypted, Converter={local:Bool2VisibilityHiddenConverter}}"/>
+        
+                <!-- Show the result -->
+                <CheckBox Grid.Row="4" Grid.Column="0" 
+                          Foreground="Red"
+                          Content="Montrer le mot de passe généré"
+                          x:Name="chkShow"/>
+
+                <TextBox Grid.Row="4" Grid.Column="1" 
+                         IsReadOnly="True"
+                         Text="{Binding EncryptedPassword}" 
+                         Visibility="{Binding IsChecked, ElementName=chkShow, Converter={local:Bool2VisibilityHiddenConverter}}"/>
+
+            </Grid>
+        </Border>
+    </Border>
+</Window>

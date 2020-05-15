@@ -1,0 +1,13 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:anim="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- Changing colors -->
+    <anim:Duration x:Key="ColorMouseLeaveDuration">0:0:0.3</anim:Duration>
+    <anim:Duration x:Key="ColorMouseEnterDuration">0:0:0.3</anim:Duration>
+
+    <!-- Changing scale XY -->
+    <anim:Duration x:Key="ScaleMouseLeaveDuration">0:0:0.15</anim:Duration>
+    <anim:Duration x:Key="ScaleMouseEnterDuration">0:0:0.15</anim:Duration>
+    
+</ResourceDictionary>
