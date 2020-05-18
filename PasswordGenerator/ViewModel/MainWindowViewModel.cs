@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Security.Cryptography;
 using System.Text;
@@ -121,6 +122,7 @@ namespace PasswordGenerator
         {
             PasswordName passwordName = new PasswordName(NewPasswordName);
             PasswordNames.Add(passwordName);
+            PasswordNames = new ObservableCollection<PasswordName>(PasswordNames.OrderBy(name => name.NormalizedName));
             CurrentPasswordName = passwordName;
             SerializePasswordNamesToJson();
         }

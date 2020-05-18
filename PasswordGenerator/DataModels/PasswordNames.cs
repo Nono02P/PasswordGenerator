@@ -10,7 +10,17 @@ namespace PasswordGenerator
         public string Name { get; set; }
 
         [IgnoreDataMember]
-        public string NormalizedName => Name?.ToUpper();
+        public string NormalizedName => Name?.ToUpper()
+            .Replace(" ", string.Empty)
+            .Replace("-", string.Empty)
+            .Replace("_", string.Empty)
+            .Replace("/", string.Empty)
+            .Replace(".", string.Empty)
+            .Replace(",", string.Empty)
+            .Replace(";", string.Empty)
+            .Replace(":", string.Empty)
+            .Replace("\\", string.Empty)
+            .Replace("/", string.Empty);
 
         public PasswordName(string name)
         {
