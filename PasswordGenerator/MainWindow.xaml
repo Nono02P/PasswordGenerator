@@ -9,9 +9,9 @@
         d:DataContext="{x:Static local:MainWindowDesignModel.Instance}"
         Title="Générateur de mot de passe" 
         Background="{StaticResource ApplicationBackgroundBrush}"
-           Height="300"    Width="600"
-        MaxHeight="300" MaxWidth="600"
-        MinHeight="300" MinWidth="600">
+           Height="300"    Width="620"
+        MaxHeight="300" MaxWidth="620"
+        MinHeight="300" MinWidth="620">
     
     <Border ClipToBounds="True">
         <Border.Background>
@@ -31,8 +31,8 @@
 
             <Grid Margin="20" local:ChildMarginProperty.Value="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="180"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
